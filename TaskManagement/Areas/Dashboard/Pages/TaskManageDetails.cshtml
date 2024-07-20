@@ -1,0 +1,48 @@
+﻿@page
+@model TaskManagement.Areas.Dashboard.Pages.TaskManageDetailsModel
+@{
+    var userList = (List<IdentityUser>)ViewData["IdentityUsersList"];
+}
+
+<form method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="mb-3">
+        <label asp-for="taskDetail.TaskName" name="form-label">Task Name</label>
+        <input asp-for="taskDetail.TaskName" class="form-control" style="width:20%">
+    </div>
+
+    <div class="mb-3">
+        <label name="form-label">User List</label>
+        @if (userList != null)
+        {
+            <select class="form-select" style="width:20%" asp-for="taskDetail.EmployeeId" class="form-control" style="width:20%">
+                <option selected>Employee</option>
+                @foreach (var item in userList)
+                {
+                    <option value="@item.Id">@item.Email</option>
+                }
+            </select>
+        }
+    </div>
+    <div class="mb-3">
+        <label asp-for="taskDetail.Notes" class="form-label">Notes</label>
+        <input asp-for="taskDetail.Notes" class="form-control" style="width:20%">
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="taskDetail.TaskStartDate" class="form-label">TaskStartDate</label>
+        <input asp-for="taskDetail.TaskStartDate" class="form-control" style="width:20%">
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="taskDetail.TaskEndDate" class="form-label">TaskEndDate</label>
+        <input asp-for="taskDetail.TaskEndDate" class="form-control" style="width:20%">
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="taskDetail.TaskStatus" class="form-label">TaskStatus</label>
+        <input type="checkbox" asp-for="taskDetail.TaskStatus" style="width:20%">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
